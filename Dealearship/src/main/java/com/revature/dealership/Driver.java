@@ -5,10 +5,15 @@ import java.util.Scanner;
 
 import com.revature.dealership.carMod.CarFileManager;
 import com.revature.dealership.listmod.*;
+//package com.revature.driver;
 
+import jdk.internal.org.jline.utils.Log;
 
+import org.apache.log4j.Logger;
 
 public class Driver {
+	
+	private static Logger log = Logger.getRootLogger();
 	
 	public static Scanner input = new Scanner(System.in);
 	public static UserFileManager ufm = new UserFileManager();
@@ -89,9 +94,9 @@ public class Driver {
 			continueLoop = CurrentUser.PromptUser();
 		}catch(InputMismatchException e) {
 			Driver.input.next();
-			System.out.println("Please Enter Valid Input");
+			Log.warn("Please Enter Valid Input");
 		}catch(IndexOutOfBoundsException e) {
-			System.out.println("Please Enter Valid Range");
+			Log.warn("Please Enter Valid Range");
 		}
 		
 		

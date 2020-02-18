@@ -35,6 +35,7 @@ public class Employee extends User {
 		System.out.println("5. Reject an offer?");
 		System.out.println("6. Remove a Car to the Lot?");
 		System.out.println("7. List Payments?");
+		System.out.println("8. Exit?");
 		System.out.println("(Select option by entering a number)");
 		
 		
@@ -73,6 +74,9 @@ public class Employee extends User {
 		case 7:
 			ListAllPayments();
 			return true;
+		
+		case 8:
+			return false;
 
 		default:
 			System.out.println("Please Enter a Valid Number.");
@@ -126,6 +130,31 @@ public class Employee extends User {
 		
 	}
 	
+	
+	public void AcceptOfferTest(int i, int j) {
+		listCars();
+		System.out.println("Select a Car by Number");
+		//int i = Driver.input.nextInt();
+		System.out.println("Choose offer by Number");
+		//list the offers on a car
+		Driver.cfm.readCarList().get(i-1).PrintOffers();
+		//int j = Driver.input.nextInt();
+		User Offereee = Driver.cfm.readCarList().get(i-1).getOfferUser(j-1);
+		
+		Driver.cfm.AcceptOffer(i -1 , Offereee);
+		
+		Driver.ufm.AddCartoUser(Offereee, Driver.cfm.readCarList().get(i-1));
+		
+		
+		
+		
+//		
+//		String username = Driver.input.next();
+//		
+//		Driver.cfm.readCarList().get(i).
+		
+		
+	}
 	
 	
 	private void RejectOffer() {

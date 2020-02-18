@@ -53,6 +53,7 @@ public class Car implements Serializable {
 			   
 		}
 		
+		
 	}
 	
 	public void RejectOffer(int i ) {
@@ -86,17 +87,20 @@ public class Car implements Serializable {
 	
 	
 	
-	public void PrintOffers() {
+	public String PrintOffers() {
 		Iterator<Offer> i = offers.iterator();
 		int j = 0;
+		String ret = "";
+		Offer current;
 		while(i.hasNext()){
 			j++;
-			System.out.println(j + ". " + i.next().toString());
+			current = i.next();
+			System.out.println(j + ". " + current.toString());
+			ret += j + ". " + current.toString() + "\n";
 
-			
 		}
-		
 		System.out.println("\n ");
+		return ret;
 	}
 	
 	

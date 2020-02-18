@@ -36,6 +36,7 @@ public class Customer extends User {
 		System.out.println("2. List all cars on lot?");
 		System.out.println("3. List your cars");
 		System.out.println("4. List your payments");
+		System.out.println("5. Exit");
 		System.out.println("(Select option by entering a number)");
 		
 		int choice;
@@ -70,6 +71,10 @@ public class Customer extends User {
 		case 4:
 			listPayments();
 			return true;
+			
+		case 5:
+			
+			return false;
 
 		default:
 			System.out.println("Please Enter a Valid Number.");
@@ -106,6 +111,29 @@ public class Customer extends User {
 		
 		System.out.println("Enter Amount: $");
 		double amountOfOffer = Driver.input.nextDouble();
+		
+		
+		
+		
+		if(Driver.cfm.AddOffer(i - 1, new Offer(this, carOfOffer, amountOfOffer))) {
+			System.out.println("Offer recieved!");
+		}else
+			System.out.println("Invalid Input!");
+		
+		
+		
+	}
+	
+	
+	public void MakeOfferTest(int i, double amountOfOffer) {
+		// TODO Auto-generated method stub
+		listCars();
+		System.out.println("Choose Car By Number: ");
+		//int i = Driver.input.nextInt();
+		Car carOfOffer = Driver.cfm.readCarList().get(i-1);
+		
+		System.out.println("Enter Amount: $");
+		//double amountOfOffer = Driver.input.nextDouble();
 		
 		
 		
