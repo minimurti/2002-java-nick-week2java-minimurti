@@ -30,16 +30,19 @@ public class CarFileManager {
 
 
 
-	public void sysoutCarList() {
+	public String sysoutCarList() {
 		Iterator<Car> i = carList.iterator();
+		String ret = "";
 		int j = 0;
+		Car nextCar = null;
 		while(i.hasNext()){
 			j++;
-			
-			System.out.println(j + ". " + i.next().toString());
-
+			nextCar = i.next();
+			System.out.println(j + ". " + nextCar.toString());
+			ret += j + ". " + nextCar.toString() + "\n";
 			
 		}
+		return ret;
 	}
 	
 	
@@ -51,10 +54,6 @@ public class CarFileManager {
 		}
 	}
 
-	
-	public LinkedList<Car> getCarList(){
-		return carList;
-	}
 	
 	
 	public LinkedList<Offer> getAcceptedOfferList() {
@@ -381,6 +380,12 @@ public class CarFileManager {
 		
 		
 		
+	}
+
+
+	public LinkedList<Car> getCarList() {
+		
+		return this.carList;
 	}
 	
 	

@@ -1,6 +1,8 @@
 package com.revature.dealership.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -8,6 +10,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -107,17 +110,40 @@ public class DealerTest {
 	}
 
 	
+	@Test
+	public void testCustomerViewCar() {
+		
+		//Car carToAdd = new Car("Toyota", "Camry", 2018, "Silver", 17000.00);
+
+		String readList = ((Customer) CustomerUser).listCarsTest();
+		
+		String shouldContain = "1. Make=Toyota, Model=Camry, Year=2018, Color=Silver, List Price=17000.0 Number of Offers= 0";
 	
+		assertTrue(readList.contains(shouldContain));
+	}
+	
+	@Test
+	public void testCustomerViewCarFalse() {
+		
+		//Car carToAdd = new Car("Toyota", "Camry", 2018, "Silver", 17000.00);
+
+		String readList = ((Customer) CustomerUser).listCarsTest();
+		
+		String shouldContain = "1. Make=Ridiculous, Model=Loca, Year=2018, Color=Silver, List Price=17000.0 Number of Offers= 0";
+	
+		assertFalse(readList.contains(shouldContain));
+	}
 	
 	@Test
 	public void testEmployeeAddCar() {
 		
 		Car carToAdd = new Car("Toyota", "Camry", 2018, "Silver", 17000.00);
 
-		((Employee) EmployeeUser).AddCarToLot(carToAdd);
+		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
 		
-		assertEquals(carToAdd , cfm.getCarList().getLast());
-		//assertEquals(true, true);
+		
+		assertEquals(carToAdd , Driver.cfm.getCarList().getLast());
+		assertEquals(true, true);
 	}
 	
 	

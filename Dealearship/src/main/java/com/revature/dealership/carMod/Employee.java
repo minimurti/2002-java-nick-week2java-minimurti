@@ -1,7 +1,6 @@
 package com.revature.dealership.carMod;
 
 import java.text.DecimalFormat;
-import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -36,18 +35,10 @@ public class Employee extends User {
 		System.out.println("5. Reject an offer?");
 		System.out.println("6. Remove a Car to the Lot?");
 		System.out.println("7. List Payments?");
-		System.out.println("8. Exit?");
-		
 		System.out.println("(Select option by entering a number)");
-		int choice = 0;
-		String testIn = Driver.input.next();
-		try {
-			choice = Integer.parseInt(testIn);
-		}
-		catch (IllegalStateException ex){
-			System.out.println("bad format");
-			return true;
-		}
+		
+		
+		int choice = Driver.input.nextInt();
 		
 		switch (choice) {
 		case 1:
@@ -82,9 +73,6 @@ public class Employee extends User {
 		case 7:
 			ListAllPayments();
 			return true;
-			
-		case 8:
-			return false;
 
 		default:
 			System.out.println("Please Enter a Valid Number.");
@@ -96,89 +84,6 @@ public class Employee extends User {
 		
 		return false;
 	}
-	
-	
-	
-	public boolean PromptUser(String input) {///copy of method with input
-		
-		
-		
-		System.out.println("Would you like to:");
-		System.out.println("1. Add a Car to the Lot?");
-		System.out.println("2. List all the Cars?");
-		System.out.println("3. List all offers?");
-		System.out.println("4. Accept an offer?");
-		System.out.println("5. Reject an offer?");
-		System.out.println("6. Remove a Car to the Lot?");
-		System.out.println("7. List Payments?");
-		System.out.println("8. Exit?");
-		
-		System.out.println("(Select option by entering a number)");
-		int choice = Integer.parseInt(input);;
-//		String testIn = Driver.input.next();
-//		try {
-//			choice = Integer.parseInt(testIn);
-//		}
-//		catch (IllegalStateException ex){
-//			System.out.println("bad format");
-//			return true;
-//		}
-		
-		switch (choice) {
-		case 1:
-			AddCarToLot();
-			
-			return true;
-			//break;
-			
-		case 2:
-			listCars();
-			
-			return true;
-			///break;
-			
-		case 3:
-			listOffers();
-			return true;
-			
-		case 4:
-			AcceptOffer();
-			return true;
-		
-		case 5:
-			RejectOffer();
-			return true;
-			
-		case 6:
-			RemoveCar();
-			return true;
-			
-			
-		case 7:
-			ListAllPayments();
-			return true;
-			
-		case 8:
-			return false;
-
-		default:
-			System.out.println("Please Enter a Valid Number.");
-			break;
-		}
-		
-		
-		
-		
-		return false;
-		
-	
-	}
-	
-	
-	
-	
-	
-	
 
 	private void ListAllPayments() {
 		// TODO Auto-generated method stub
@@ -245,12 +150,8 @@ public class Employee extends User {
 		
 	}
 
-	
-	public Car AddCarToLot(Car carIn) {//nonPrompt
-		return Driver.cfm.CreateNewCar(carIn);
-	}
 
-	private Car AddCarToLot(){
+	private void AddCarToLot(){
 		
 		System.out.println("Enter Make: ");
 		String make = Driver.input.next();
@@ -267,7 +168,7 @@ public class Employee extends User {
 		
 		
 		
-		return Driver.cfm.CreateNewCar(new Car(make, model, year, color, listPrice));
+		Driver.cfm.CreateNewCar(new Car(make, model, year, color, listPrice));
 		
 		
 		
@@ -292,6 +193,11 @@ public class Employee extends User {
 	
 	private void listOffers() {
 		Driver.cfm.sysoutOfferList();
+	}
+
+	public void AddCarToLotTest(Car carToAdd) {
+		Driver.cfm.CreateNewCar(carToAdd);
+		
 	}
 	
 

@@ -107,5 +107,62 @@ public class Car implements Serializable {
 	public boolean isAccepted() {
 		return isAccepted;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + (isAccepted ? 1231 : 1237);
+		long temp;
+		temp = Double.doubleToLongBits(listPrice);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((make == null) ? 0 : make.hashCode());
+		result = prime * result + ((model == null) ? 0 : model.hashCode());
+		result = prime * result + ((offers == null) ? 0 : offers.hashCode());
+		result = prime * result + year;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Car other = (Car) obj;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		if (isAccepted != other.isAccepted)
+			return false;
+		if (Double.doubleToLongBits(listPrice) != Double.doubleToLongBits(other.listPrice))
+			return false;
+		if (make == null) {
+			if (other.make != null)
+				return false;
+		} else if (!make.equals(other.make))
+			return false;
+		if (model == null) {
+			if (other.model != null)
+				return false;
+		} else if (!model.equals(other.model))
+			return false;
+		if (offers == null) {
+			if (other.offers != null)
+				return false;
+		} else if (!offers.equals(other.offers))
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
+	}
+	
+	
+	
 	
 }
