@@ -3,11 +3,16 @@ package com.revature.dealership.test;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.revature.dealership.Car;
@@ -20,38 +25,64 @@ import com.revature.dealership.listmod.Admin;
 import com.revature.dealership.listmod.UserFileManager;
 
 public class DealerTest {
-	User AdminUser;
-	Car TestCar;
+	static User AdminUser;
+	static Car TestCar;
+	public static UserFileManager ufm = null;
+	public static CarFileManager cfm = null;
 	//User CustomerUser;
-	UserFileManager ufm = new UserFileManager();
-	CarFileManager cfm = new CarFileManager();
+
+
 	
-	@Before // runs once before each test
-	public void setUp() throws Exception {
+	@BeforeClass // runs once before each test
+	public static void setUp() throws Exception {
+		
+
 		
 		InputStream sysInBackup = System.in; // backup System.in to restore it later
 		
+		String simulatedUserInput = "adminPass" + System.getProperty("line.separator") + "admin" + System.getProperty("line.separator") + "adminPass" + System.getProperty("line.separator") + "Johny" + System.getProperty("line.separator")
+	    + "y" + System.getProperty("line.separator") + "jpass" + System.getProperty("line.separator") + "exit" + System.getProperty("line.separator");
+		
+		System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
+		
+        Path temp = Files.move 
+        (Paths.get("./users.dat"),  
+        Paths.get("./datBackup/users.dat.backup")); 
+  
+
+        
+        Path carTemp = Files.move 
+        (Paths.get("./cars.dat"),  
+        Paths.get("./datBackup/cars.dat.backup")); 
+
+		
+		////////////////////////////////////////////////////////////backup previos dat file
+		
+
 		
 		
+
 		
+
 		
-		ufm.checkUserFile();
-		cfm.checkCarFile();
+		Driver.main(null);
+		
+		ufm = new UserFileManager();
+		cfm = new CarFileManager();
+		
 		
 		TestCar = cfm.CreateNewCar(new Car("Toyota", "Prius", 2008, "Green", 7000.00));
 		ufm.CreateNewCustomerAccount("Jordan Customer", "jpass");
 		
-		User AdminUser = ufm.checkUser("admin", "admin");
-		String simulatedUserInput = "Johny" + System.getProperty("line.separator")
-	    + "y" + System.getProperty("line.separator") + "jpass" + System.getProperty("line.separator");
+		User AdminUser = ufm.checkUser("admin", "adminPass");
 		
-		System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
-		AdminUser.PromptUser();
+		//AdminUser.PromptUser();
 		System.setIn(sysInBackup);
 
 		
 		
 		
+
 		
 		
 	}
@@ -60,12 +91,14 @@ public class DealerTest {
 	@Test
 	public void testCustomerLogin() {
 		assertEquals(new Customer("Jordan Customer", "jpass") , ufm.checkUser("Jordan Customer", "jpass"));
+		//assertEquals(true, true);
 	}
 	
 
 	@Test
 	public void testEmployeeLogin() {
 		assertEquals(new Employee("Johny", "jpass") , ufm.checkUser("Johny", "jpass"));
+		//assertEquals(true, true);
 	}
 
 	
@@ -89,11 +122,64 @@ public class DealerTest {
 	@AfterClass// runs once after all tests finish
 	public static void tearDownAfterClass() throws Exception {
 		
-		UserFileManager ufm = new UserFileManager();
-		CarFileManager cfm = new CarFileManager();
-		User AdminUser = ufm.checkUser("admin", "admin");
-		((Admin) AdminUser).deleteLastUser();
-		// optionally, reset System.in to its original
+		
+		
+		
+	  
+	        File file = new File("./users.dat"); 
+	          
+	        if(file.delete()) 
+	        { 
+	            System.out.println("New User Test File deleted successfully"); 
+	        } 
+	        else
+	        { 
+	            System.out.println("Failed to delete the file"); 
+	        } 
+	    
+	        File fileCar = new File("./cars.dat"); 
+	          
+	        if(fileCar.delete()) 
+	        { 
+	            System.out.println("New Car test File deleted successfully"); 
+	        } 
+	        else
+	        { 
+	            System.out.println("Failed to delete the file"); 
+	        } 
+		
+		
+		
+		
+		
+		
+		
+        Path tempBack = Files.move 
+        (Paths.get("./datBackup/users.dat.backup"),  
+        Paths.get("./users.dat")); 
+  
+        if(tempBack != null) 
+        { 
+            System.out.println("File renamed and moved successfully"); 
+        } 
+        else
+        { 
+            System.out.println("Failed to move the file"); 
+        } 
+        
+        
+        Path carTempBack = Files.move 
+        (Paths.get("./datBackup/cars.dat.backup"),  
+        Paths.get("./cars.dat")); 
+  
+        if(carTempBack != null) 
+        { 
+            System.out.println("File renamed and moved successfully"); 
+        } 
+        else
+        { 
+            System.out.println("Failed to move the file"); 
+        } 
 	
 	}
 	
