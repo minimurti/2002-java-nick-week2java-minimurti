@@ -32,13 +32,7 @@ public class Admin extends User {
 	
 	
 	
-	public void addEmployee() {
-	
-		
 
-
-		
-	}
 
                                   
 
@@ -90,9 +84,15 @@ public class Admin extends User {
 			return;
 		}
 		
-		
+		System.out.println("Created!");
 		Driver.ufm.CreateNewEmployeeAccount(EmployeeName, password);
 		return;
+	}
+	
+	
+	
+	public void deleteLastUser() {
+		Driver.ufm.deleteRecent();
 	}
 	
 	

@@ -1,7 +1,9 @@
 package com.revature.dealership;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.revature.dealership.carMod.CarFileManager;
 import com.revature.dealership.listmod.*;
 
 
@@ -10,6 +12,7 @@ public class Driver {
 	
 	public static Scanner input = new Scanner(System.in);
 	public static UserFileManager ufm = new UserFileManager();
+	public static CarFileManager cfm = new CarFileManager();
 	
 	
 
@@ -79,13 +82,32 @@ public class Driver {
 
 		}
 		
+		boolean continueLoop = true;
 		
-		while(CurrentUser.PromptUser());
+		while(continueLoop) {
+		try {
+			continueLoop = CurrentUser.PromptUser();
+		}catch(InputMismatchException e) {
+			Driver.input.next();
+			System.out.println("Please Enter Valid Input");
+		}catch(IndexOutOfBoundsException e) {
+			System.out.println("Please Enter Valid Range");
+		}
+		
+		
+		
+		}
+		
 		
 		input.close();
 		
 		
 		return; 
+	}
+	
+	
+	public static boolean test() {
+		return true;
 	}
 	
 	

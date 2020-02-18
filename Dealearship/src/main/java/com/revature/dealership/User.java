@@ -1,6 +1,7 @@
 package com.revature.dealership;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 
 public abstract class User implements Serializable{
@@ -27,6 +28,7 @@ public abstract class User implements Serializable{
 		this.name = inName;
 		this.pwd = inPwd;
 		this.userType = type;
+		
 	}
 	
 	
@@ -94,48 +96,18 @@ public abstract class User implements Serializable{
 			return false;
 		return true;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
+
+
 	
 	
-//	public boolean equalsName(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		User other = (User) obj;
-//		if (name == null) {
-//			if (other.name != null)
-//				return false;
-//		} else if (!name.equals(other.name))
-//			return false;
-//		
-//		return true;
-//	}
-//	
-//	
-//	public boolean equalsNamePass(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		User other = (User) obj;
-//		if (name == null) {
-//			if (other.name != null)
-//				return false;
-//		} else if (!name.equals(other.name))
-//			return false;
-//		if (pwd == null) {
-//			if (other.pwd != null)
-//				return false;
-//		} else if (!pwd.equals(other.pwd))
-//			return false;
-//		
-//		
-//		return true;
-//	}
 	
 	
 	

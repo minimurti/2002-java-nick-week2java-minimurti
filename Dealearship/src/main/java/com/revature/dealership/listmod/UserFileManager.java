@@ -1,5 +1,6 @@
 package com.revature.dealership.listmod;
 import com.revature.dealership.*;
+import com.revature.dealership.carMod.Employee;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,6 +26,15 @@ public class UserFileManager {
 	}
 
 	
+	protected void deleteRecent() {
+		userList.removeLast();
+		writeUserList();
+	}
+	
+	
+	public LinkedList<User> getUserList() {
+		return userList;
+	}
 	
 	private void writeUserList() {
 		String filename;
@@ -76,7 +86,21 @@ public class UserFileManager {
 	}
 	
 	
-	
+	public void AddCartoUser(User input, Car carInput) {
+		ListIterator<User> listIterator = userList.listIterator();
+		User current = null;
+		while (listIterator.hasNext()) {
+			current = listIterator.next();
+			if( current.equals(input)) {
+				((Customer) current).addCar(carInput);
+				writeUserList();
+				return;
+			}
+			
+		}
+
+		
+	}
 	
 	
 	
