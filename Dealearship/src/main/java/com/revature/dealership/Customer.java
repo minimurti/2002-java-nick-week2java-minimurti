@@ -31,11 +31,13 @@ public class Customer extends User {
 	@Override
 	public boolean PromptUser() {
 		
-		System.out.println("What would you like to do?");
+		System.out.println("Would you like to:");
 		System.out.println("1. Make an Offer?");
 		System.out.println("2. List all cars on lot?");
-		System.out.println("3. List your cars");
-		System.out.println("4. List your payments");
+		System.out.println("3. List your cars?");
+		System.out.println("4. List your payments?");
+		System.out.println("5. Exit?");
+		
 		System.out.println("(Select option by entering a number)");
 		
 		int choice;
@@ -70,6 +72,9 @@ public class Customer extends User {
 		case 4:
 			listPayments();
 			return true;
+			
+		case 5:
+			return false;
 
 		default:
 			System.out.println("Please Enter a Valid Number.");

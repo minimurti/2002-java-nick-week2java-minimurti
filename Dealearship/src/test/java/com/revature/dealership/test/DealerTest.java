@@ -26,19 +26,22 @@ import com.revature.dealership.listmod.UserFileManager;
 
 public class DealerTest {
 	static User AdminUser;
+	static User EmployeeUser;
+	static User CustomerUser;
 	static Car TestCar;
 	public static UserFileManager ufm = null;
 	public static CarFileManager cfm = null;
 	//User CustomerUser;
-
+	
 
 	
 	@BeforeClass // runs once before each test
 	public static void setUp() throws Exception {
 		
+		InputStream sysInBackup = System.in;
 
 		
-		InputStream sysInBackup = System.in; // backup System.in to restore it later
+		 // backup System.in to restore it later
 		
 		String simulatedUserInput = "adminPass" + System.getProperty("line.separator") + "admin" + System.getProperty("line.separator") + "adminPass" + System.getProperty("line.separator") + "Johny" + System.getProperty("line.separator")
 	    + "y" + System.getProperty("line.separator") + "jpass" + System.getProperty("line.separator") + "exit" + System.getProperty("line.separator");
@@ -72,15 +75,17 @@ public class DealerTest {
 		
 		
 		TestCar = cfm.CreateNewCar(new Car("Toyota", "Prius", 2008, "Green", 7000.00));
-		ufm.CreateNewCustomerAccount("Jordan Customer", "jpass");
+		CustomerUser = ufm.CreateNewCustomerAccount("Jordan Customer", "jpass");
 		
-		User AdminUser = ufm.checkUser("admin", "adminPass");
+		AdminUser = ufm.checkUser("admin", "adminPass");
+		EmployeeUser = ufm.checkUser("Johny", "jpass");
+		//EmployeeUser = ufm.checkUser("admin", "adminPass");
 		
 		//AdminUser.PromptUser();
-		System.setIn(sysInBackup);
+		
 
 		
-		
+		System.setIn(sysInBackup);
 		
 
 		
@@ -104,7 +109,16 @@ public class DealerTest {
 	
 	
 	
-	
+	@Test
+	public void testEmployeeAddCar() {
+		
+		Car carToAdd = new Car("Toyota", "Camry", 2018, "Silver", 17000.00);
+
+		((Employee) EmployeeUser).AddCarToLot(carToAdd);
+		
+		assertEquals(carToAdd , cfm.getCarList().getLast());
+		//assertEquals(true, true);
+	}
 	
 	
 	
@@ -181,6 +195,7 @@ public class DealerTest {
             System.out.println("Failed to move the file"); 
         } 
 	
+        
 	}
 	
 

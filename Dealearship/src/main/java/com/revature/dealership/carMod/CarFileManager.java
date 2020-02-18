@@ -52,6 +52,10 @@ public class CarFileManager {
 	}
 
 	
+	public LinkedList<Car> getCarList(){
+		return carList;
+	}
+	
 	
 	public LinkedList<Offer> getAcceptedOfferList() {
 		Iterator<Car> i = carList.iterator();
