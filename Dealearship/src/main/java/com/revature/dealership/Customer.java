@@ -90,17 +90,37 @@ public class Customer extends User {
 	
 	
 	
-	private void listPayments() {
+	private String listPayments() {
 		listMyCars();
 		System.out.println("Choose Car By Number: ");
 		int i = Driver.input.nextInt();
-		DecimalFormat numberFormat = new DecimalFormat("#.00");
-
-		System.out.println("Total of $" + numberFormat.format(Cars.get(i).getOffer(0).getAmount()) + ", with 60 remaining payments of $" + numberFormat.format(Cars.get(i).getOffer(0).getAmount()/60) + " per month, over the course of 5 years 0% APR.");
-		
+		return listPaymentsIn(i);
 		
 	}
 
+	
+	public String listPaymentsIn(int i) {
+	
+		
+		DecimalFormat numberFormat = new DecimalFormat("#.00");
+		try {
+			System.out.println("Total of $" + numberFormat.format(Cars.get(i).getOffer(0).getAmount()) + ", with 60 remaining payments of $" + numberFormat.format(Cars.get(i).getOffer(0).getAmount()/60) + " per month, over the course of 5 years 0% APR.");
+			return "Total of $" + numberFormat.format(Cars.get(i).getOffer(0).getAmount()) + ", with 60 remaining payments of $" + numberFormat.format(Cars.get(i).getOffer(0).getAmount()/60) + " per month, over the course of 5 years 0% APR.";
+			
+		}catch(InputMismatchException e) {
+				//Log.warn("Please Enter Valid Input");
+				System.out.println("Please Enter Valid Input");
+				
+		}catch(IndexOutOfBoundsException e) {
+				//Log.warn("Please Enter Valid Range");
+				System.out.println("Please Enter Valid Range");
+		}catch(IllegalAccessError e) {
+				//Log.warn("Please Enter Valid Input");
+				System.out.println("Please Enter Valid Input");
+		}
+		return "Error";
+
+	}
 
 	private void MakeOffer() {
 		// TODO Auto-generated method stub

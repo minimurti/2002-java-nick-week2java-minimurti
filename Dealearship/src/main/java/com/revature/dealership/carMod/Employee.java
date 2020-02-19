@@ -1,6 +1,7 @@
 package com.revature.dealership.carMod;
 
 import java.text.DecimalFormat;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -89,21 +90,25 @@ public class Employee extends User {
 		return false;
 	}
 
-	private void ListAllPayments() {
+	public String ListAllPayments() {
 		// TODO Auto-generated method stub
 		LinkedList<Offer> out = Driver.cfm.getAcceptedOfferList();
 		Iterator<Offer> i = out.iterator();
-		
+		String ret = "";
 		DecimalFormat numberFormat = new DecimalFormat("#.00");
 		Offer current = null;
 		while(i.hasNext()){
 			current = i.next();
-			System.out.println(current.getOfferer() + " owes a total of $" + numberFormat.format(current.getAmount()) + ", with 60 remaining payments of $" + numberFormat.format(current.getAmount()/60) + " per month, over the course of 5 years 0% APR.\n");
-			
+			System.out.println(current.getOfferer() + " owes a total of $" + numberFormat.format(current.getAmount()) + ", with 60 remaining payments of $" + numberFormat.format(current.getAmount()/60) + " per month, over the course of 5 years 0% APR, For their " + current.getCar() + "\n");
+			ret += current.getOfferer() + " owes a total of $" + numberFormat.format(current.getAmount()) + ", with 60 remaining payments of $" + numberFormat.format(current.getAmount()/60) + " per month, over the course of 5 years 0% APR, For their " + current.getCar() + "\n";	
 		}
 		
-		
+		return ret;
 	}
+	
+	
+
+	
 
 	private void AcceptOffer() {
 		listCars();
@@ -209,19 +214,27 @@ public class Employee extends User {
 		System.out.println("Select a Car by Number");
 		int i = Driver.input.nextInt();
 		
-		Driver.cfm.removeCar(i);
+		RemoveCarTest(i);
 	
 		
 	}
 	
 	
 	public void RemoveCarTest(int i) {
-		listCars();
-		System.out.println("Select a Car by Number");
-		//int i = Driver.input.nextInt();
-		
+//		
+		try {
 		Driver.cfm.removeCar(i);
-	
+		}catch(InputMismatchException e) {
+				//Log.warn("Please Enter Valid Input");
+				System.out.println("Please Enter Valid Input");
+		}catch(IndexOutOfBoundsException e) {
+				//Log.warn("Please Enter Valid Range");
+				System.out.println("Please Enter Valid Range");
+		}catch(IllegalAccessError e) {
+				//Log.warn("Please Enter Valid Input");
+				System.out.println("Please Enter Valid Input");
+		}
+			
 		
 	}
 	

@@ -96,6 +96,78 @@ public class DealerTest {
 	}
 	
 	
+
+	
+	
+	
+	@Test
+	public void EmpViewPaymentsOnCars() {
+		Car carToAdd = new Car("Basic", "GreyCar", 2017, "Grey", 35000.00);
+		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
+		int indexOne = Driver.cfm.getCarList().indexOf(carToAdd);
+		
+		carToAdd = new Car("Basic", "RedCar", 2017, "Red", 35000.00);
+		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
+		int indexTwo = Driver.cfm.getCarList().indexOf(carToAdd);
+		
+		carToAdd = new Car("Basic", "GreenCar", 2017, "Green", 35000.00);
+		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
+		int indexThree = Driver.cfm.getCarList().indexOf(carToAdd);
+		
+		
+		User Bob = Driver.ufm.CreateNewCustomerAccount("Bob", "Incredible");
+		User Edna = Driver.ufm.CreateNewCustomerAccount("Edna", "Darling");
+		
+		((Customer) Bob).MakeOfferTest(indexOne +1, 60000.0);
+		((Employee) EmployeeUser).AcceptOfferTest(indexOne + 1, 1);
+		((Customer) Bob).MakeOfferTest(indexTwo +1, 30000.0);
+		((Employee) EmployeeUser).AcceptOfferTest(indexTwo + 1, 1);
+		((Customer) Edna).MakeOfferTest(indexThree +1, 20000.0);
+		((Employee) EmployeeUser).AcceptOfferTest(indexThree + 1, 1);
+		
+		
+		String AllPayments = ((Employee) Driver.ufm.checkUser("Johny", "jpass")).ListAllPayments();
+		
+		
+		
+		
+		assertTrue(AllPayments.contains("Bob owes a total of $60000.00") && AllPayments.contains("Bob owes a total of $30000.00") && AllPayments.contains("Edna owes a total of $20000.00"));
+
+	}
+	
+	
+	@Test
+	public void CustViewPaymentsOnNOCars() {
+
+		User Kenny = Driver.ufm.CreateNewCustomerAccount("Kenny", "IamMysterion");
+		
+
+		
+		((Customer) Driver.ufm.checkUser("Kenny", "IamMysterion")).listPaymentsIn(0);
+
+	}
+	
+	
+	
+	@Test
+	public void CustViewPaymentsOnCars() {
+		Car carToAdd = new Car("Nintendo", "Landmaster", 2017, "Grey", 65000.00);
+		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
+		int indexAdded = Driver.cfm.getCarList().indexOf(carToAdd);
+		
+		User Fox = Driver.ufm.CreateNewCustomerAccount("Fox", "heya");
+		
+		((Customer) Fox).MakeOfferTest(indexAdded +1, 60000.0);
+		((Employee) EmployeeUser).AcceptOfferTest(indexAdded + 1, 1);
+		
+		String payments = ((Customer) Driver.ufm.checkUser("Fox", "heya")).listPaymentsIn(0);
+		//int i =0;
+		
+		assertTrue(payments.equalsIgnoreCase("Total of $60000.00, with 60 remaining payments of $1000.00 per month, over the course of 5 years 0% APR."));
+		
+	}
+	
+	
 	
 	@Test
 	public void ViewOwnedCars() {
@@ -109,10 +181,24 @@ public class DealerTest {
 		((Employee) EmployeeUser).AcceptOfferTest(indexAdded + 1, 1);
 		
 		String carList = ((Customer) Driver.ufm.checkUser("Mario", "itsame")).listMyCars();
-		int i =0;
+		//int i =0;
 		
 		assertTrue(carList.contains("Nintendo"));
 		
+	}
+	
+	
+	@Test
+	public void RemoveEmptyCar() {
+
+		for(int i = 0; i < 20; i++) {
+
+		((Employee) EmployeeUser).RemoveCarTest(0);
+
+		
+		}
+		
+
 	}
 	
 	

@@ -19,8 +19,8 @@ public class Offer implements Serializable {
 		return Offerer;
 	}
 
-	public Car getCar(Car car) {
-		return car;
+	public Car getCar() {
+		return this.car;
 	}
 
 	public double getAmount() {
