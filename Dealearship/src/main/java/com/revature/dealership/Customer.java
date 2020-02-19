@@ -1,10 +1,13 @@
 package com.revature.dealership;
 
 import java.text.DecimalFormat;
+//import org.apache.log4j.Logger;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.LinkedList;
 //import java.util.Scanner;
+
+
 
 public class Customer extends User {
 
@@ -43,9 +46,13 @@ public class Customer extends User {
 		try {
 			choice = Driver.input.nextInt();
 		}catch(InputMismatchException e) {
+			Driver.log.warn("Username " + this.getName() + " caused error", e);
 			choice = 0;
 			Driver.input.next();
 
+		}catch(Exception e) {
+			choice = 0;
+			Driver.log.error("Username " + this.getName() + " caused error", e);
 		}
 		
 		
@@ -94,7 +101,7 @@ public class Customer extends User {
 		listMyCars();
 		System.out.println("Choose Car By Number: ");
 		int i = Driver.input.nextInt();
-		return listPaymentsIn(i);
+		return listPaymentsIn(i-1);
 		
 	}
 
@@ -108,15 +115,26 @@ public class Customer extends User {
 			return "Total of $" + numberFormat.format(Cars.get(i).getOffer(0).getAmount()) + ", with 60 remaining payments of $" + numberFormat.format(Cars.get(i).getOffer(0).getAmount()/60) + " per month, over the course of 5 years 0% APR.";
 			
 		}catch(InputMismatchException e) {
+			Driver.log.warn("Username " + this.getName() + " caused error", e);
+			
 				//Log.warn("Please Enter Valid Input");
 				System.out.println("Please Enter Valid Input");
 				
 		}catch(IndexOutOfBoundsException e) {
+			Driver.log.warn("Username " + this.getName() + " caused error", e);
+			
 				//Log.warn("Please Enter Valid Range");
 				System.out.println("Please Enter Valid Range");
 		}catch(IllegalAccessError e) {
+			Driver.log.warn("Username " + this.getName() + " caused error", e);
+			
 				//Log.warn("Please Enter Valid Input");
 				System.out.println("Please Enter Valid Input");
+		}
+		catch(Exception e) {
+			Driver.log.warn("Username " + this.getName() + " caused error", e);
+			
+				
 		}
 		return "Error";
 

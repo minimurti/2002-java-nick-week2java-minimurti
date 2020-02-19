@@ -79,7 +79,7 @@ public class Admin extends User {
 
 		
 		
-		if(password.isEmpty() || password.isBlank()) {
+		if(password.isEmpty()) {
 			System.out.println("Please Enter Atleast One Character!");
 			return;
 		}

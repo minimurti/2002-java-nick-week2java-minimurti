@@ -7,13 +7,13 @@ import com.revature.dealership.carMod.CarFileManager;
 import com.revature.dealership.listmod.*;
 //package com.revature.driver;
 
-import jdk.internal.org.jline.utils.Log;
+//import jdk.internal.org.jline.utils.Log;
 
 import org.apache.log4j.Logger;
 
 public class Driver {
 	
-	private static Logger log = Logger.getRootLogger();
+	public static Logger log = Logger.getRootLogger();
 	
 	public static Scanner input = new Scanner(System.in);
 	public static UserFileManager ufm = new UserFileManager();
@@ -42,25 +42,32 @@ public class Driver {
 		
 		User CurrentUser = ufm.checkUser(username, password);
 		
-		if(CurrentUser == null) {
+		while(CurrentUser == null) {
 			
 			System.out.println("Username and Password Combination not Found.");
+			log.info("Username " + username + " entered but not found");
 			System.out.println("Creat New Customer Account? (Y/n)");
 			String answer = input.next();
-			String newUsername = null;
-			while(CurrentUser == null)
+			//String newUsername = null;
+			
 			if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("yes")) {
 				
 				boolean UniqueName = false;
 				
+				if(ufm.CheckNameAvailibility(username)) {
+					UniqueName = true;
+				}
+
+				
 				while(!UniqueName) {
+					System.out.println("That Username is taken.");
 					System.out.println("Enter a Unique Username: ");
-					newUsername = input.next();
-					if(ufm.CheckNameAvailibility(newUsername)) {
+					username = input.next();
+					if(ufm.CheckNameAvailibility(username)) {
 						UniqueName = true;
 					}
 					else {
-						System.out.println("That Username is taken.");
+						
 					}
 				}
 				
@@ -68,7 +75,8 @@ public class Driver {
 				System.out.println("Enter Password: ");
 				String newPassword = input.next();
 				
-				CurrentUser = ufm.CreateNewCustomerAccount(newUsername, newPassword);
+				CurrentUser = ufm.CreateNewCustomerAccount(username, newPassword);
+				log.info("Username " + username + " Created a Customer Account");
 			}else {
 				System.out.println("Enter Username: ");
 				
@@ -87,19 +95,28 @@ public class Driver {
 
 		}
 		
+		log.info("Username " + username + " has logged in to as a(n) " + CurrentUser.getUserType() + ".");
+		
 		boolean continueLoop = true;
 		
 		while(continueLoop) {
 		try {
 			continueLoop = CurrentUser.PromptUser();
+			
+			
 		}catch(InputMismatchException e) {
 			Driver.input.next();
-			//Log.warn("Please Enter Valid Input");
+			Driver.log.warn("Username " + CurrentUser.getName() + " caused error", e);
+			
 			System.out.println("Please Enter Valid Input");
 		}catch(IndexOutOfBoundsException e) {
+			Driver.log.warn("Username " + CurrentUser.getName() + " caused error", e);
+			
 			//Log.warn("Please Enter Valid Range");
 			System.out.println("Please Enter Valid Range");
 		}catch(IllegalAccessError e) {
+			Driver.log.warn("Username " + CurrentUser.getName() + " caused error", e);
+			
 			//Log.warn("Please Enter Valid Input");
 			System.out.println("Please Enter Valid Input");
 		}

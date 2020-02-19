@@ -76,7 +76,7 @@ public class UserFileManager {
 		ListIterator<User> listIterator = userList.listIterator();
 		while (listIterator.hasNext()) {
 			
-			if(listIterator.next().getName() == username) {
+			if(listIterator.next().getName().equals(username)) {
 				return false;
 			}
 			

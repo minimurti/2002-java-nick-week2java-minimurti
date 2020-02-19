@@ -225,12 +225,18 @@ public class Employee extends User {
 		try {
 		Driver.cfm.removeCar(i);
 		}catch(InputMismatchException e) {
+			Driver.log.warn("Username " + this.getName() + " caused error", e);
+			
 				//Log.warn("Please Enter Valid Input");
 				System.out.println("Please Enter Valid Input");
 		}catch(IndexOutOfBoundsException e) {
+			Driver.log.warn("Username " + this.getName() + " caused error", e);
+			
 				//Log.warn("Please Enter Valid Range");
 				System.out.println("Please Enter Valid Range");
 		}catch(IllegalAccessError e) {
+			Driver.log.warn("Username " + this.getName() + " caused error", e);
+			
 				//Log.warn("Please Enter Valid Input");
 				System.out.println("Please Enter Valid Input");
 		}
