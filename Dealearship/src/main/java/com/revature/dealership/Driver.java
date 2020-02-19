@@ -94,9 +94,14 @@ public class Driver {
 			continueLoop = CurrentUser.PromptUser();
 		}catch(InputMismatchException e) {
 			Driver.input.next();
-			Log.warn("Please Enter Valid Input");
+			//Log.warn("Please Enter Valid Input");
+			System.out.println("Please Enter Valid Input");
 		}catch(IndexOutOfBoundsException e) {
-			Log.warn("Please Enter Valid Range");
+			//Log.warn("Please Enter Valid Range");
+			System.out.println("Please Enter Valid Range");
+		}catch(IllegalAccessError e) {
+			//Log.warn("Please Enter Valid Input");
+			System.out.println("Please Enter Valid Input");
 		}
 		
 		

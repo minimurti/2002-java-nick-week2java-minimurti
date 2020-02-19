@@ -215,6 +215,17 @@ public class Employee extends User {
 	}
 	
 	
+	public void RemoveCarTest(int i) {
+		listCars();
+		System.out.println("Select a Car by Number");
+		//int i = Driver.input.nextInt();
+		
+		Driver.cfm.removeCar(i);
+	
+		
+	}
+	
+	
 	private void listCars() {
 		Driver.cfm.sysoutCarList();
 	}

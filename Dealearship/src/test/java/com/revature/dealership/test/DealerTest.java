@@ -86,7 +86,7 @@ public class DealerTest {
 		
 		//AdminUser.PromptUser();
 		
-
+		
 		
 		System.setIn(sysInBackup);
 		
@@ -97,10 +97,49 @@ public class DealerTest {
 	
 	
 	
+	@Test
+	public void ViewOwnedCars() {
+		Car carToAdd = new Car("Nintendo", "Kart", 2017, "Rainbow", 15000.00);
+		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
+		int indexAdded = Driver.cfm.getCarList().indexOf(carToAdd);
+		
+		User Mario = Driver.ufm.CreateNewCustomerAccount("Mario", "itsame");
+		
+		((Customer) Mario).MakeOfferTest(indexAdded +1, 6125.0);
+		((Employee) EmployeeUser).AcceptOfferTest(indexAdded + 1, 1);
+		
+		String carList = ((Customer) Driver.ufm.checkUser("Mario", "itsame")).listMyCars();
+		int i =0;
+		
+		assertTrue(carList.contains("Nintendo"));
+		
+	}
 	
 	
+	@Test
+	public void EmployeeRemoveCar() {
+		Car carToAdd = new Car("Unique", "NewYork", 2017, "Gold", 15000.00);
+		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
+		
+		
+		
+		boolean iGive = Driver.cfm.getCarList().contains(carToAdd);
+		int indexAdded = Driver.cfm.getCarList().indexOf(carToAdd);
+
+		((Employee) EmployeeUser).RemoveCarTest(indexAdded);
+		boolean iTAKE = !Driver.cfm.getCarList().contains(carToAdd);
+		
+		
+		
+		assertTrue(iGive && iTAKE);
+	}
 	
 	
+	@Test
+	public void createNewUser() {
+		User newUser = ufm.CreateNewCustomerAccount("New Customer", "npass");
+		//suprize...
+	}
 	
 	
 	
@@ -213,12 +252,11 @@ public class DealerTest {
 		
 		//Car carToAdd = new Car("Toyota", "Camry", 2018, "Silver", 17000.00);
 
-		((Customer) CustomerUser).MakeOfferTest(1, 6125.0);
+		((Customer) CustomerUser).MakeOfferTest(1, 1234123.0);//specialNumb
 		
 		String out = Driver.cfm.getCarList().get(0).PrintOffers();
 		
-		String shouldContain = "Amount=$6125.0, Accepted=false, Offerer=Jordan Customer, Car=Make=Toyota, Model=Camry, Year=2018, Color=Silver, List Price=17000.0";
-		
+		String shouldContain = "Amount=$1234123";
 	
 		assertTrue(out.contains(shouldContain));
 	}

@@ -157,15 +157,19 @@ public class Customer extends User {
 	
 
 
-	private void listMyCars() {
+	public String listMyCars() {
 		Iterator<Car> i = Cars.iterator();
 		int j = 0;
+		Car currentCar = null;
+		String ret = "";
 		while(i.hasNext()) {
 			 j++;
-			 System.out.println(j + ". " + i.next());
+			 currentCar = i.next();
+			 System.out.println(j + ". " + currentCar);
+			 ret += j + ". " + currentCar + "\n";
 			 
 		}
-
+		return  ret;
 	}
 	
 	
