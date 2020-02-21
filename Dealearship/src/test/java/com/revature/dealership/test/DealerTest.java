@@ -52,14 +52,14 @@ public class DealerTest {
 		System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
 		
         Path temp = Files.move 
-        (Paths.get("./users.dat"),  
-        Paths.get("./datBackup/users.dat.backup")); 
+        (Paths.get("users.dat"),  
+        Paths.get("datBackup/users.dat.backup")); 
   
 
         
         Path carTemp = Files.move 
-        (Paths.get("./cars.dat"),  
-        Paths.get("./datBackup/cars.dat.backup")); 
+        (Paths.get("cars.dat"),  
+        Paths.get("datBackup/cars.dat.backup")); 
 
 		
 		////////////////////////////////////////////////////////////backup previos dat file
@@ -241,18 +241,20 @@ public class DealerTest {
 		
 		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
 		
-		((Customer) CustomerUser).MakeOfferTest(2, 6125.0);
-		((Customer) CustomerUser).MakeOfferTest(2, 4125.0);
-		((Customer) CustomerUser).MakeOfferTest(2, 3125.0);
-		((Customer) CustomerUser).MakeOfferTest(2, 2125.0);
+		int index = Driver.cfm.getCarList().indexOf(carToAdd);
+		
+		((Customer) CustomerUser).MakeOfferTest(index + 1, 6125.0);
+		((Customer) CustomerUser).MakeOfferTest(index + 1, 4125.0);
+		((Customer) CustomerUser).MakeOfferTest(index + 1, 3125.0);
+		((Customer) CustomerUser).MakeOfferTest(index + 1, 2125.0);
 		
 		
 		
 		
-		Driver.cfm.getCarList().get(1).getOffer(0);
-		Driver.cfm.getCarList().get(1).getOffer(1);
-		Driver.cfm.getCarList().get(1).getOffer(2);
-		Driver.cfm.getCarList().get(1).getOffer(3);//make sure the offers still there.
+		Driver.cfm.getCarList().get(index).getOffer(0);
+		Driver.cfm.getCarList().get(index).getOffer(1);
+		Driver.cfm.getCarList().get(index).getOffer(2);
+		Driver.cfm.getCarList().get(index).getOffer(3);//make sure the offers still there.
 		
 	
 		
@@ -336,11 +338,16 @@ public class DealerTest {
 	@Test
 	public void testCustomerMakeOffer() {
 		
-		//Car carToAdd = new Car("Toyota", "Camry", 2018, "Silver", 17000.00);
+		Car carToAdd = new Car("Toyota", "Camry", 2018, "Silver", 17000.00);
 
-		((Customer) CustomerUser).MakeOfferTest(1, 1234123.0);//specialNumb
+		((Employee) EmployeeUser).AddCarToLotTest(carToAdd);
 		
-		String out = Driver.cfm.getCarList().get(0).PrintOffers();
+		
+		int index = Driver.cfm.getCarList().indexOf(carToAdd);
+		
+		((Customer) CustomerUser).MakeOfferTest(index +1, 1234123.0);//specialNumb
+		
+		String out = Driver.cfm.getCarList().get(index).PrintOffers();
 		
 		String shouldContain = "Amount=$1234123";
 	
@@ -399,7 +406,7 @@ public class DealerTest {
 		
 		
 		assertEquals(carToAdd , Driver.cfm.getCarList().getLast());
-		assertEquals(true, true);
+	//	assertEquals(true, true);
 	}
 	
 	
@@ -422,7 +429,7 @@ public class DealerTest {
 		
 		
 	  
-	        File file = new File("./users.dat"); 
+	        File file = new File("users.dat"); 
 	          
 	        if(file.delete()) 
 	        { 
@@ -433,7 +440,7 @@ public class DealerTest {
 	            System.out.println("Failed to delete the file"); 
 	        } 
 	    
-	        File fileCar = new File("./cars.dat"); 
+	        File fileCar = new File("cars.dat"); 
 	          
 	        if(fileCar.delete()) 
 	        { 
@@ -451,8 +458,8 @@ public class DealerTest {
 		
 		
         Path tempBack = Files.move 
-        (Paths.get("./datBackup/users.dat.backup"),  
-        Paths.get("./users.dat")); 
+        (Paths.get("datBackup/users.dat.backup"),  
+        Paths.get("users.dat")); 
   
         if(tempBack != null) 
         { 
@@ -465,8 +472,8 @@ public class DealerTest {
         
         
         Path carTempBack = Files.move 
-        (Paths.get("./datBackup/cars.dat.backup"),  
-        Paths.get("./cars.dat")); 
+        (Paths.get("datBackup/cars.dat.backup"),  
+        Paths.get("cars.dat")); 
   
         if(carTempBack != null) 
         { 

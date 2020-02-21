@@ -89,6 +89,10 @@ public class CarFileManager {
 		if(i > carList.size()) {
 			return false;
 		}
+		if(carList.get(i).isAccepted()) {
+			System.out.println("Someone Already Ownes this.");
+			return false;
+		}
 		carList.get(i).addOffer(offer);
 		writeCarList();
 		return true;

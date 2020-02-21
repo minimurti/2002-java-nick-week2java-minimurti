@@ -159,7 +159,7 @@ public class Customer extends User {
 			System.out.println("Invalid Input!");
 		
 		
-		
+		Driver.log.info("User " + this.getName() + " made an offer of $" + amountOfOffer + carOfOffer);
 	}
 	
 	

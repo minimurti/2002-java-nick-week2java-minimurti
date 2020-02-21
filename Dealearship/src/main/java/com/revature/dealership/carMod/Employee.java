@@ -124,7 +124,9 @@ public class Employee extends User {
 		
 		Driver.ufm.AddCartoUser(Offereee, Driver.cfm.readCarList().get(i-1));
 		
-		
+
+		Driver.log.info("Employee User " + this.getName() + " accepted an offer from " + Offereee.getName());
+//		
 		
 		
 //		
@@ -174,8 +176,7 @@ public class Employee extends User {
 		
 		Driver.cfm.RejectOffer(i-1,j-1);
 	
-		
-		
+		Driver.log.info("Employee User " + this.getName() + " rejected an offer.");
 //		
 //		String username = Driver.input.next();
 //		
@@ -224,6 +225,8 @@ public class Employee extends User {
 //		
 		try {
 		Driver.cfm.removeCar(i);
+		Driver.log.info("Employee User " + this.getName() + " removed a car from the lot.");
+		
 		}catch(InputMismatchException e) {
 			Driver.log.warn("Username " + this.getName() + " caused error", e);
 			
@@ -256,6 +259,9 @@ public class Employee extends User {
 
 	public void AddCarToLotTest(Car carToAdd) {
 		Driver.cfm.CreateNewCar(carToAdd);
+
+		Driver.log.info("Employee User " + this.getName() + " added " + carToAdd + " to the lot.");
+	
 		
 	}
 	
